@@ -1,0 +1,15 @@
+name: Build GolemAgent
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-plugin:
+    uses: NhanAZ/DevTools/.github/workflows/build-plugin.yml@41cf43a4db67d47ef3d3f004b82309b3fc61c128 # v2.0.0
+    with:
+      project: .
+      type: plugin

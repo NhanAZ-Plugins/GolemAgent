@@ -1,0 +1,4 @@
+# Runtime files required by GolemAgent at startup.
+include-paths:
+  - GOLEM-LICENSE.txt
+  - runtime-lock.json

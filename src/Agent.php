@@ -184,7 +184,7 @@ final class Agent extends PluginBase{
 		}catch(\Throwable $failure){
 			unset($response['result']);
 			$response['ok'] = false;
-			$response['error'] = $failure::class . ': ' . $failure->getMessage();
+			$response['error'] = get_class($failure) . ': ' . $failure->getMessage();
 		}
 		$this->record('response', $response);
 		$this->write($this->getDataFolder() . 'responses/' . $envelope['transport_id'] . '.json', $response);
@@ -251,7 +251,7 @@ final class Agent extends PluginBase{
 		if(count($this->subscriptions) >= 256){ throw new \LengthException('Explicit 256-subscription limit reached'); }
 		if(!is_a($class, Event::class, true)){ throw new \InvalidArgumentException('class must be a loaded or autoloadable PocketMine event'); }
 		$this->getServer()->getPluginManager()->registerEvent($class, function(Event $event) : void{
-			$data = ['sequence' => ++$this->eventSequence, 'class' => $event::class, 'tick' => $this->getServer()->getTick(), 'cancelled' => $event instanceof Cancellable ? $event->isCancelled() : null, 'projection' => 'common_getters_only'];
+			$data = ['sequence' => ++$this->eventSequence, 'class' => get_class($event), 'tick' => $this->getServer()->getTick(), 'cancelled' => $event instanceof Cancellable ? $event->isCancelled() : null, 'projection' => 'common_getters_only'];
 			foreach(['getPlayer', 'getEntity', 'getBlock', 'getItem', 'getMessage', 'getDamage', 'getFrom', 'getTo'] as $getter){
 				if(is_callable([$event, $getter]) && (new \ReflectionMethod($event, $getter))->getNumberOfRequiredParameters() === 0){
 					$data[$getter] = View::value($event->$getter());

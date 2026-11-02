@@ -28,7 +28,7 @@ final class View{
 			return ['size' => $value->getSize(), 'contents' => self::value($value->getContents(), $depth + 1)];
 		}
 		if($value instanceof Entity){
-			return ['class' => $value::class, 'id' => $value->getId(), 'name' => $value instanceof Player ? $value->getName() : null, 'position' => self::value($value->getPosition()), 'alive' => $value->isAlive()];
+			return ['class' => get_class($value), 'id' => $value->getId(), 'name' => $value instanceof Player ? $value->getName() : null, 'position' => self::value($value->getPosition()), 'alive' => $value->isAlive()];
 		}
 		if($value instanceof Vector3){
 			return ['x' => $value->x, 'y' => $value->y, 'z' => $value->z];
@@ -40,9 +40,9 @@ final class View{
 			if($value instanceof ClientboundPacket){
 				$writer = new ByteBufferWriter();
 				$value->encode($writer);
-				return ['class' => $value::class, 'representation' => 'synthetic_server_packet_encoding', 'base64' => base64_encode($writer->getData()), 'public_fields' => self::value(get_object_vars($value), $depth + 1)];
+				return ['class' => get_class($value), 'representation' => 'synthetic_server_packet_encoding', 'base64' => base64_encode($writer->getData()), 'public_fields' => self::value(get_object_vars($value), $depth + 1)];
 			}
-			return ['class' => $value::class, 'public_fields' => self::value(get_object_vars($value), $depth + 1)];
+			return ['class' => get_class($value), 'public_fields' => self::value(get_object_vars($value), $depth + 1)];
 		}
 		if(is_array($value)){
 			if(count($value) > 16384){
