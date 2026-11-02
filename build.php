@@ -12,7 +12,7 @@ if(file_exists($output)){ throw new RuntimeException('Output already exists. Cho
 $phar = new Phar($output);
 $phar->startBuffering();
 $phar->addFile(__DIR__ . '/plugin.yml', 'plugin.yml');
-$phar->addFile(dirname(__DIR__, 2) . '/LICENSE', 'LICENSE');
+$phar->addFile(__DIR__ . '/LICENSE', 'LICENSE');
 $phar->addFile(__DIR__ . '/runtime-lock.json', 'runtime-lock.json');
 $phar->addFile(__DIR__ . '/GOLEM-LICENSE.txt', 'GOLEM-LICENSE.txt');
 foreach(['Agent', 'Actions', 'View', 'Personality', 'Behaviour'] as $class){

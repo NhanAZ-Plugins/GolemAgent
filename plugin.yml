@@ -4,6 +4,6 @@ src-namespace-prefix: BedrockDebugProxy\GolemAgent
 version: 0.2.0
 api: 5.0.0
 depend: [Golem]
-description: Local CLI automation for simulated players on disposable development servers.
+description: Server-side simulated-player companion for disposable PocketMine-MP and Axolotl-PM development servers.
 author: NhanAZ
-website: https://github.com/NhanAZ/BedrockDebugProxy
+website: https://github.com/NhanAZ-Plugins/GolemAgent

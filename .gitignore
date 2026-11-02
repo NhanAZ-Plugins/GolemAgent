@@ -1,0 +1,4 @@
+.local/
+*.phar
+*.phar.gz
+vendor/
