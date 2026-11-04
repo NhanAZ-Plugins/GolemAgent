@@ -1,17 +1,14 @@
 # GolemAgent
 
-GolemAgent is a PocketMine-MP and Axolotl-PM companion plugin for driving
-server-side simulated players in a disposable development server.
+PocketMine-MP and Axolotl-PM GolemAgent companion plugin for disposable server-side simulation tests
 
-This repository contains only the PHP companion plugin. It is not a Bedrock
-network client and it does not join public servers. It does not provide Xbox
-authentication, RakNet transport, resource-pack transfer validation, retail
-client rendering, or public-server release evidence.
+[![CI](https://github.com/NhanAZ-Plugins/GolemAgent/actions/workflows/build.yml/badge.svg)](https://github.com/NhanAZ-Plugins/GolemAgent/actions/workflows/build.yml)
+[![License](https://img.shields.io/github/license/NhanAZ-Plugins/GolemAgent)](https://github.com/NhanAZ-Plugins/GolemAgent/blob/main/LICENSE)
+[![Discord](https://img.shields.io/discord/986553214889517088?label=Discord&logo=discord&logoColor=white&color=5865F2)](https://discord.gg/j2X83ujT6c)
 
-Use it when a plugin test needs the real server-side `Player` API, PocketMine
-events, forms, inventories, permissions, worlds, scheduler ticks, or custom
-plugin services without opening a Minecraft client. Keep the server, world,
-plugin data directory, and trusted test scripts disposable and private.
+## Overview
+
+This plugin targets the PocketMine-MP and Axolotl-PM API 5 ecosystem and is maintained under [NhanAZ-Plugins](https://github.com/NhanAZ-Plugins).
 
 ## Runtime
 
