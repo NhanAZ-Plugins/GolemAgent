@@ -246,15 +246,21 @@ final class Agent extends PluginBase{
 		return $result;
 	}
 
+	/** @devtools-allow-dynamic-class $class */
 	private function subscribe(string $class) : array{
 		if(isset($this->subscriptions[$class])){ return ['class' => $class, 'already_subscribed' => true]; }
 		if(count($this->subscriptions) >= 256){ throw new \LengthException('Explicit 256-subscription limit reached'); }
-		if(!is_a($class, Event::class, true)){ throw new \InvalidArgumentException('class must be a loaded or autoloadable PocketMine event'); }
+		if(!class_exists($class)){ throw new \InvalidArgumentException('class must be a loaded or autoloadable PocketMine event'); }
+		if(!is_subclass_of($class, Event::class)){ throw new \InvalidArgumentException('class must be a PocketMine event'); }
 		$this->getServer()->getPluginManager()->registerEvent($class, function(Event $event) : void{
 			$data = ['sequence' => ++$this->eventSequence, 'class' => get_class($event), 'tick' => $this->getServer()->getTick(), 'cancelled' => $event instanceof Cancellable ? $event->isCancelled() : null, 'projection' => 'common_getters_only'];
 			foreach(['getPlayer', 'getEntity', 'getBlock', 'getItem', 'getMessage', 'getDamage', 'getFrom', 'getTo'] as $getter){
-				if(is_callable([$event, $getter]) && (new \ReflectionMethod($event, $getter))->getNumberOfRequiredParameters() === 0){
-					$data[$getter] = View::value($event->$getter());
+				if(is_callable([$event, $getter])){
+					try{
+						$data[$getter] = View::value((\Closure::fromCallable([$event, $getter]))());
+					}catch(\ArgumentCountError|\TypeError){
+						// Ignore event getters that require arguments.
+					}
 				}
 			}
 			$this->record('event', $data);
