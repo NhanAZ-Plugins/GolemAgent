@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build-plugin:
-    uses: NhanAZ/DevTools/.github/workflows/build-plugin.yml@v2.1.1
+    uses: AxolotlBucketLabs/DevTools/.github/workflows/build-plugin.yml@v3
     with:
       project: .
       type: plugin
