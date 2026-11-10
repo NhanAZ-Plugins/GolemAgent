@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build-plugin:
-    uses: AxolotlBucketLabs/DevTools/.github/workflows/build-plugin.yml@v3
+    uses: AxolotlBucketLabs/DevTools/.github/workflows/build-plugin.yml@latest
     with:
       project: .
       type: plugin
